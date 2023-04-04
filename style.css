@@ -1,0 +1,48 @@
+@import url('https://fonts.googleapis.com/css2?family=Nunito&display=swap');
+
+body {
+    background-color: antiquewhite;
+    font-family: Nunito, Helvetica, sans-serif;
+}
+
+#container {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-direction: column;
+}
+
+#innerContainer{
+    width: 1280px;
+    display:flex;
+    flex-wrap: wrap;
+    border: 1px solid;
+    gap: 25px;
+    align-items: center;
+    justify-content: center;
+}
+
+#player {
+    width: 288px;
+    height: 360px;
+    display:flex;
+    flex-wrap: wrap;  
+    background-color: lightblue; 
+}
+
+#enemy {
+    width: 288px;
+    height: 360px;
+    display:flex;
+    flex-wrap: wrap;  
+    background-color: lightcoral; 
+}
+
+#grid {
+    width: auto;
+    display:grid;
+    grid-template-columns: repeat(5, 100px) ;
+    gap: 5px;
+}
+
+ 
