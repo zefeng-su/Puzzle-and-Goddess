@@ -1,7 +1,7 @@
 @import url('https://fonts.googleapis.com/css2?family=Nunito&display=swap');
 
 body {
-    background-color: antiquewhite;
+    background-color: 	darkgray;
     font-family: Nunito, Helvetica, sans-serif;
 }
 
@@ -17,7 +17,7 @@ body {
     display:flex;
     flex-wrap: wrap;
     border: 1px solid;
-    gap: 25px;
+    gap: 45px;
     align-items: center;
     justify-content: center;
 }
