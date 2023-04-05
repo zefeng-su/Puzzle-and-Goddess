@@ -16,10 +16,17 @@ body {
     width: 1280px;
     display:flex;
     flex-wrap: wrap;
-    border: 1px solid;
+    /* border: 1px solid; */
     gap: 45px;
     align-items: center;
     justify-content: center;
+}
+
+#playerContainer {
+    width: 288px;
+    height: 415px;
+    display:flex;
+    flex-wrap: wrap;  
 }
 
 #player {
@@ -27,7 +34,22 @@ body {
     height: 360px;
     display:flex;
     flex-wrap: wrap;  
-    background-color: lightblue; 
+    background-image:  url("img/player.png");
+}
+
+#playerTxtbox {
+    width: 288px;
+    height: 55px;
+    display:flex;
+    flex-wrap: wrap;  
+    background-color: antiquewhite;
+}
+
+#enemyContainer {
+    width: 288px;
+    height: 415px;
+    display:flex;
+    flex-wrap: wrap;  
 }
 
 #enemy {
@@ -35,7 +57,15 @@ body {
     height: 360px;
     display:flex;
     flex-wrap: wrap;  
-    background-color: lightcoral; 
+    background-image:  url("img/enemy1.png");
+}
+
+#enemyTxtbox {
+    width: 288px;
+    height: 55px;
+    display:flex;
+    flex-wrap: wrap;  
+    background-color: antiquewhite;
 }
 
 #grid {
@@ -43,6 +73,20 @@ body {
     display:grid;
     grid-template-columns: repeat(5, 100px) ;
     gap: 5px;
+}
+
+.hpText {
+    width: 288px;
+    height: 30px;
+    display:flex;
+    flex-wrap: wrap;
+}
+
+.statusText {
+    width: 288px;
+    height: 25px;
+    display:flex;
+    flex-wrap: wrap;
 }
 
  

@@ -40,6 +40,14 @@ $(() => {
     const shuffleArray = (array) => {
         return array.sort(() => Math.random() - 0.5);
     }
+
+    const resetBoard = () => {
+        cardChosenName = [];
+        cardChosenID = [];
+        cardsFlipped = [];
+        $("#grid").empty(); 
+        createBoard(cardArray); 
+    }
     
     const flipCard = (event) => {
         const $card = $(event.currentTarget);
@@ -73,6 +81,7 @@ $(() => {
         if (card1Name === card2Name) {
             //alert("a match!")
             cardsFlipped.push(cardChosenName);
+            console.log(cardsFlipped)
         } else {
             //alert("not a match!")
             $("#grid").effect('bounce', {
@@ -86,9 +95,14 @@ $(() => {
                 $card2.attr('src', 'img/cardBack.png').removeClass('flipped');
             }, 1000);
         }
+         
     
         cardChosenName = [];
         cardChosenID = [];
+
+        if(cardsFlipped.length === 10) {
+            resetBoard();
+        }
     };
 
     createBoard(cardArray); 
