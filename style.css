@@ -57,7 +57,6 @@ body {
     height: 360px;
     display:flex;
     flex-wrap: wrap;  
-    background-image:  url("img/enemy1.png");
 }
 
 #enemyTxtbox {

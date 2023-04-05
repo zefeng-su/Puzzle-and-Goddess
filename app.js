@@ -39,17 +39,41 @@ $(() => {
                 greenHeal: 20
             }  
         }
-      
-        // fight(enemy,attackIndex) {
-        //     console.log(`${this.name} attacks!: `, 'i\'m ready to rumble');
-        //     enemy.health -= this.weapons[Object.keys(this.weapons)[weaponIndex]];
-        //     console.log(`${enemy.name} got hit by ${Object.keys(this.weapons)[weaponIndex]}! His health is now at ${enemy.health}!`)
-        // }
     }
 
-    const player1 = new Player ("Athena");
-    $("#playerHP").text(player1.health)
+    class Enemy {
+        constructor() {
+            this.health = 30;
+            this.type = [
+                {name: "Werewolf", img:'img/enemy1.png'},
+                {name: "Undead", img:'img/enemy2.png'},
+                {name: "Dragon", img:'img/enemy3.png'},
+                {name: "Vampire", img:'img/enemy4.png'},
+            ]   
+        } 
+    }
 
+    let playerHP = null;
+    let enemycurrentHP = null;
+
+    const createPlayer = () => {
+        const player = new Player ("Athena");
+        playerHP = player.health
+        $("#playerHP").text(player.health)
+    }
+    
+    const createEnemy = () => {
+        const enemy = new Enemy();
+        const randomIndex = Math.floor(Math.random() * enemy.type.length);
+        enemy.type = enemy.type[randomIndex];
+        enemycurrentHP = enemy.health;
+        $("#enemyHP").text(enemy.health);
+        $("#enemycurrentHP").text(enemycurrentHP);
+        $("#enemyName").text(enemy.type.name);
+        $("#enemy").css({"background-image": `url(${enemy.type.img})`});
+    };
+
+   
     //1. To place card on board and distribute them randomly.
     //2. Function to populate cards stored in the cardArray then populate them randomly on the grid.
     //3. Using loop to populate card showing cardBack img on the gridboard, each card will have an unique id assigned. Calls shuffleArray function to randomize the elements in array.
@@ -60,7 +84,7 @@ $(() => {
             $("#grid").append($card);  
          }    
 
-         shuffleArray(cardArray);
+        shuffleArray(cardArray);
     };
 
     //A function to randomize order of elements in array.
@@ -124,7 +148,8 @@ $(() => {
         if (card1Name === card2Name) {
             //alert("a match!")
             cardsFlipped.push(cardChosenName);
-            console.log(cardsFlipped)
+            attackEnemy(card1Name, card2Name);
+            //onsole.log(cardsFlipped)
         } else {
             //alert("not a match!")
             $("#grid").effect('bounce', {
@@ -140,8 +165,8 @@ $(() => {
                 easing: 'easeInOutCirc'
             });
 
-            player1.health -=5;
-            $("#playerHP").text(player1.health);
+            playerHP -=5;
+            $("#playerHP").text(playerHP);
             
             setTimeout(() => {
                 $card1.attr('src', 'img/cardBack.png').removeClass('flipped');
@@ -157,6 +182,48 @@ $(() => {
         }
     };
 
+    const attackEnemy = (card1Name, card2Name) => {  
+        if (card1Name === "blue" && card2Name === "blue") {
+          enemycurrentHP -= 3;
+          $("#enemyContainer").effect('shake', {
+                times: 5,     
+                distance: 10,
+                duration: 500  ,
+                easing: 'easeInOutCirc'
+            });
+          $("#enemycurrentHP").text(enemycurrentHP);
+        } else if (card1Name === "yellow" && card2Name === "yellow") {
+          enemycurrentHP -= 5;
+          $("#enemyContainer").effect('shake', {
+            times: 5,     
+            distance: 10,
+            duration: 500  ,
+            easing: 'easeInOutCirc'
+        });
+          $("#enemycurrentHP").text(enemycurrentHP);
+        } else if (card1Name === "red" && card2Name === "red") {
+          enemycurrentHP -= 10;
+          $("#enemyContainer").effect('shake', {
+            times: 5,     
+            distance: 10,
+            duration: 500  ,
+            easing: 'easeInOutCirc'
+        });
+          $("#enemycurrentHP").text(enemycurrentHP);
+        } else if (card1Name === "green" && card2Name === "green") {
+            playerHP  += 20;
+            $("#playerHP").text(playerHP)
+        }
+
+        //force playerHP to not exceed 100
+        if (playerHP >= 100) {
+            playerHP = 100;
+            $("#playerHP").text(playerHP)
+        }
+    };
+
+    createPlayer();
+    createEnemy();
     createBoard(cardArray); 
 
 })
