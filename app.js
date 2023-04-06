@@ -55,7 +55,7 @@ $(() => {
                 {name: "Ghoul", img:'img/enemy06.png'},
                 {name: "Orc", img:'img/enemy07.png'},
                 {name: "Serpent", img:'img/enemy08.png'},
-                {name: "Abunis", img:'img/enemy09.png'},
+                {name: "Anubis", img:'img/enemy09.png'},
                 {name: "Bakeneko", img:'img/enemy10.png'},
             ]     
         } 

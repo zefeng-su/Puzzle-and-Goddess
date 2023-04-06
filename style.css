@@ -76,16 +76,19 @@ body {
 
 .hpText {
     width: 288px;
-    height: 30px;
+    height: 25px;
     display:flex;
     flex-wrap: wrap;
+    align-items: center;
+    
 }
 
 .statusText {
     width: 288px;
-    height: 25px;
+    height: 30px;
     display:flex;
     flex-wrap: wrap;
+    align-items: center;
 }
 
  
