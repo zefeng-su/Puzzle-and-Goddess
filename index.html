@@ -14,18 +14,17 @@
 </head>
 
     <body>
-        
-        <h1>Stage: 0</h1>
 
         <div id="container">
-            
+
+            <h1>Stages cleared: <span id="stageCleared" style="margin-left: 5px;">0</span></h1>
+
             <div id ="innerContainer">
                 <div id ="playerContainer">
                     <div id ="player"></div>
                     <div id ="playerTxtbox">
-                        <div class ="hpText">HP:<span id="playerHP"></span>/100</div>
-                        <div class ="statusText">Player ready</div>
-                        
+                        <div class ="statusText"><span id="playerName">Player</span></div>
+                        <div class ="hpText">HP:<span id="playerHP" style="margin-left: 5px;"></span>/100</div>
                     </div>
                 </div>     
 
@@ -34,8 +33,11 @@
                 <div id ="enemyContainer">
                     <div id ="enemy"></div>
                     <div id ="enemyTxtbox">
-                        <div class ="hpText">HP:<span id="enemycurrentHP">100</span>/<span id="enemyHP">100</span></div>
-                        <div class ="statusText"><span id="enemyName">Enemy</span><span style="margin-left: 5px;">ready</span></div>
+                        <div class ="statusText">Level
+                            <span id="enemyLevel" style="margin-left: 5px;">1</span>
+                            <span id="enemyName" style="margin-left: 5px;">Enemy</span>
+                        </div>
+                        <div class ="hpText">HP:<span id="enemycurrentHP" style="margin-left: 5px;">100</span>/<span id="enemyHP">100</span></div>
                     </div>
                 </div>
             </div>

@@ -31,45 +31,62 @@ $(() => {
 
     class Player {
         constructor(name) {
+            this.name = name;
             this.health = 100;
             this.attack = {
-                blueAtk: 3,
-                yellowAtk: 5,
-                redAtk: 10,
-                greenHeal: 20
+                blue: 5,
+                yellow: 10,
+                red: 15,
+                special: 50,
+                green: 20,
+                healXL: 50,
             }  
         }
     }
 
     class Enemy {
         constructor() {
-            this.health = 30;
             this.type = [
-                {name: "Werewolf", img:'img/enemy1.png'},
-                {name: "Undead", img:'img/enemy2.png'},
-                {name: "Dragon", img:'img/enemy3.png'},
-                {name: "Vampire", img:'img/enemy4.png'},
-            ]   
+                {name: "Werewolf", img:'img/enemy01.png'},
+                {name: "Undead", img:'img/enemy02.png'},
+                {name: "Dragon", img:'img/enemy03.png'},
+                {name: "Vampire", img:'img/enemy04.png'},
+                {name: "Succubus", img:'img/enemy05.png'},
+                {name: "Ghoul", img:'img/enemy06.png'},
+                {name: "Orc", img:'img/enemy07.png'},
+                {name: "Serpent", img:'img/enemy08.png'},
+                {name: "Abunis", img:'img/enemy09.png'},
+                {name: "Bakeneko", img:'img/enemy10.png'},
+            ]     
         } 
     }
 
+    const PlayerMaxHP = 100;
     let playerHP = null;
+    let enemyMaxHP = 30;
     let enemycurrentHP = null;
+    let playerAtk = null;
+    let enemyAtk = 5;
+    let stageCleared = 0;
+    let enemyLv = 1;
 
     const createPlayer = () => {
         const player = new Player ("Athena");
         playerHP = player.health
+        playerAtk = player.attack
         $("#playerHP").text(player.health)
+        $("#playerName").text(player.name);
     }
     
     const createEnemy = () => {
         const enemy = new Enemy();
         const randomIndex = Math.floor(Math.random() * enemy.type.length);
         enemy.type = enemy.type[randomIndex];
-        enemycurrentHP = enemy.health;
-        $("#enemyHP").text(enemy.health);
+        enemycurrentHP = enemyMaxHP;
+        $("#enemyHP").text(enemyMaxHP);
         $("#enemycurrentHP").text(enemycurrentHP);
         $("#enemyName").text(enemy.type.name);
+        $("#enemyLevel").text(enemyLv);
         $("#enemy").css({"background-image": `url(${enemy.type.img})`});
     };
 
@@ -82,9 +99,10 @@ $(() => {
             const $card =  $("<img src='img/cardBack.png'>").attr('card-id', i).css("cursor", "pointer");
             $card.on("click", flipCard);
             $("#grid").append($card);  
+            $("#stageCleared").text(stageCleared);  
          }    
 
-        shuffleArray(cardArray);
+        shuffleArray(cardArray); //comment out for non-random card order for quick testing
     };
 
     //A function to randomize order of elements in array.
@@ -99,20 +117,13 @@ $(() => {
         cardChosenName = [];
         cardChosenID = [];
         cardsFlipped = [];
-        $("#grid").effect('explode', {
-            duration: 500,
-            easing: 'easeInOutCirc'
-        });
+        
+        applyExplode("#grid");
 
         setTimeout(() => {
             $("#grid").empty(); 
             createBoard(cardArray); 
-
-            $("#grid").effect('fold', {
-                mode: 'show',
-                duration: 500,
-                easing: 'easeInOutCirc'
-            });
+            applyFold("#grid", "show")
         }, 500);
     }
     
@@ -146,26 +157,13 @@ $(() => {
         const card2Name = cardArray[card2ID].name;
     
         if (card1Name === card2Name) {
-            //alert("a match!")
             cardsFlipped.push(cardChosenName);
-            attackEnemy(card1Name, card2Name);
-            //onsole.log(cardsFlipped)
+            attackEnemy(card1Name, card2Name);          
         } else {
-            //alert("not a match!")
-            $("#grid").effect('bounce', {
-                times: 5,     
-                distance: 10,
-                duration: 500  ,
-                easing: 'easeInOutCirc'
-            });
-            $("#playerContainer").effect('shake', {
-                times: 5,     
-                distance: 10,
-                duration: 500  ,
-                easing: 'easeInOutCirc'
-            });
+            applyBounce("#grid");
+            applyShake("#playerContainer"); 
 
-            playerHP -=5;
+            playerHP -= enemyAtk;
             $("#playerHP").text(playerHP);
             
             setTimeout(() => {
@@ -177,50 +175,106 @@ $(() => {
         cardChosenName = [];
         cardChosenID = [];
 
-        if(cardsFlipped.length === 10) {
-            resetBoard();
-        }
+      
     };
 
     const attackEnemy = (card1Name, card2Name) => {  
         if (card1Name === "blue" && card2Name === "blue") {
-          enemycurrentHP -= 3;
-          $("#enemyContainer").effect('shake', {
-                times: 5,     
-                distance: 10,
-                duration: 500  ,
-                easing: 'easeInOutCirc'
-            });
-          $("#enemycurrentHP").text(enemycurrentHP);
+            enemycurrentHP -= playerAtk.blue;
+            applyShake("#enemyContainer");
+            $("#enemycurrentHP").text(enemycurrentHP);
         } else if (card1Name === "yellow" && card2Name === "yellow") {
-          enemycurrentHP -= 5;
-          $("#enemyContainer").effect('shake', {
-            times: 5,     
-            distance: 10,
-            duration: 500  ,
-            easing: 'easeInOutCirc'
-        });
-          $("#enemycurrentHP").text(enemycurrentHP);
+            enemycurrentHP -= playerAtk.yellow;
+            applyShake("#enemyContainer");
+            $("#enemycurrentHP").text(enemycurrentHP);
         } else if (card1Name === "red" && card2Name === "red") {
-          enemycurrentHP -= 10;
-          $("#enemyContainer").effect('shake', {
-            times: 5,     
-            distance: 10,
-            duration: 500  ,
-            easing: 'easeInOutCirc'
-        });
-          $("#enemycurrentHP").text(enemycurrentHP);
+            enemycurrentHP -= playerAtk.red;
+            applyShake("#enemyContainer");
+            $("#enemycurrentHP").text(enemycurrentHP);
         } else if (card1Name === "green" && card2Name === "green") {
-            playerHP  += 20;
+            playerHP += playerAtk.green;
+            $("#playerHP").text(playerHP);
+        }
+
+        if(cardsFlipped.length === (cardArray.length/2)) {
+            enemycurrentHP -= playerAtk.special;
+            applyShake("#enemyContainer");
+            $("#enemycurrentHP").text(enemycurrentHP);
+            playerHP += playerAtk.healXL;
+            $("#playerHP").text(playerHP);
+            resetBoard();
+        }
+
+        //force playerHP to cap at 100
+        if (playerHP >= PlayerMaxHP) {
+            playerHP = PlayerMaxHP;
             $("#playerHP").text(playerHP)
         }
 
-        //force playerHP to not exceed 100
-        if (playerHP >= 100) {
-            playerHP = 100;
-            $("#playerHP").text(playerHP)
-        }
+
+        if (enemycurrentHP <= 0) {
+            stageCleared += 1;
+            $("#stageCleared").text(stageCleared);
+            applyFade("#enemyContainer")
+
+            setTimeout(() => {
+                ("#enemyContainer").empty;    
+                nextEnemy();
+            }, 500);
+        }    
     };
+
+    const nextEnemy = () => {
+        createEnemy();
+        enemyMaxHP += 10;
+        enemycurrentHP = enemyMaxHP;
+        enemyAtk += 1;
+        enemyLv +=1;
+        $("#enemyHP").text(enemyMaxHP);
+        $("#enemyLevel").text(enemyLv);
+        $("#enemycurrentHP").text(enemycurrentHP);
+    }
+
+    const applyShake = (elementSelector) => {
+        $(elementSelector).effect('shake', {
+          times: 5,
+          distance: 10,
+          duration: 500,
+          easing: 'easeInOutCirc'
+        });
+    }
+
+    const applyBounce = (elementSelector) => {
+        $(elementSelector).effect('bounce', {
+            times: 5,     
+            distance: 10,
+            duration: 500  ,
+            easing: 'easeInOutCirc'
+        });
+    }
+
+    const applyExplode = (elementSelector) => {
+        $(elementSelector).effect('explode', {
+            duration: 500,
+            easing: 'easeInOutCirc'
+        });
+    }
+
+    const applyFold = (elementSelector, mode) => {
+        $(elementSelector).effect('fold', {
+            mode: mode,
+            duration: 500,
+            easing: 'easeInOutCirc'
+        });
+    }
+
+    const applyFade= (elementSelector) => {
+        $(elementSelector).effect('fade', {
+            toggle: false,
+            duration: 500,
+            easing: 'easeInOutCirc'
+        });
+    }
 
     createPlayer();
     createEnemy();
