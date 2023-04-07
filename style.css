@@ -1,8 +1,14 @@
-@import url('https://fonts.googleapis.com/css2?family=Nunito&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Goudy+Bookletter+1911');
+@import url('https://fonts.googleapis.com/css2?family=Crimson+Text:wght@600');
+@import url('https://fonts.googleapis.com/css2?family=Vesper+Libre');
 
 body {
     background-color: 	darkgray;
-    font-family: Nunito, Helvetica, sans-serif;
+    font-family: 'Crimson Text', serif;
+}
+
+h1 {
+    font-family: 'Vesper Libre', serif;
 }
 
 #container {
@@ -10,6 +16,32 @@ body {
     justify-content: center;
     align-items: center;
     flex-direction: column;
+}
+
+#playerStatus{
+    width: 288px;
+    display:flex;
+    flex-wrap: wrap;
+    align-items: center;
+    justify-content: center;
+    font-family: 'Crimson Text', serif;
+    font-size: 128px;
+    color: black;
+    -webkit-text-stroke-width: 3px;
+    -webkit-text-stroke-color: black;
+}
+
+#enemyStatus{
+    width: 288px;
+    display:flex;
+    flex-wrap: wrap;
+    align-items: center;
+    justify-content: center;
+    font-family: 'Crimson Text', serif;
+    font-size: 128px;
+    color: black;
+    -webkit-text-stroke-width: 3px;
+    -webkit-text-stroke-color: black;
 }
 
 #gameover{

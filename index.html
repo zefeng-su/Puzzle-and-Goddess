@@ -17,7 +17,7 @@
 
         <div id="container">
 
-            <h1>Stages cleared: <span id="stageCleared" style="margin-left: 5px;">0</span></h1>
+            <h1>Stages Cleared: <span id="stageCleared" style="margin-left: 5px;">0</span></h1>
             <div id="gameover">
                 <div><h1>Game Over</h1></div>
                 <div><button id ="gameoverbtn">Restart Game</button></div>
@@ -25,25 +25,25 @@
 
             <div id ="innerContainer">
                 <div id ="playerContainer">
-                    <div id ="player"></div>
+                    <div id ="player"><h2 id="playerStatus">00</h2></div>
                     <div id ="playerTxtbox">
-                        <div class ="statusText"><span id="playerName" style="margin-left: 5px;">Player</span></div>
-                        <div class ="hpText"><span style="margin-left: 5px;">HP:</span><span id="playerHP" style="margin-left: 5px;"></span>/100</div>
+                        <div class ="statusText"><span id="playerName" style="margin-left: 10px;">Player</span></div>
+                        <div class ="hpText"><span style="margin-left: 10px;">HP:</span><span id="playerHP" style="margin-left: 5px;"></span>/100</div>
                     </div>
                 </div>     
 
                 <div id="grid"></div> 
                 
                 <div id ="enemyContainer">
-                    <div id ="enemy"></div>
+                    <div id ="enemy"><h2 id="enemyStatus">00</h2></div>
                     <div id ="enemyTxtbox">
                         <div class ="statusText">
-                            <span style="margin-left: 5px;">Level</span>
+                            <span style="margin-left: 10px;">Level</span>
                             <span id="enemyLevel" style="margin-left: 5px;">1</span>
                             <span id="enemyName" style="margin-left: 5px;">Enemy</span>
                         </div>
                         <div class ="hpText"> 
-                            <span style="margin-left: 5px;">HP:</span><span id="enemycurrentHP" style="margin-left: 5px;">100</span>/<span id="enemyHP">100</span></div>
+                            <span style="margin-left: 10px;">HP:</span><span id="enemycurrentHP" style="margin-left: 5px;">100</span>/<span id="enemyHP">100</span></div>
                     </div>
                 </div>
             </div>

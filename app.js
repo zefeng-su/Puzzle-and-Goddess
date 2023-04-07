@@ -99,6 +99,8 @@ $(() => {
         }    
         
         $("#gameover").css({'display': 'none'});
+        $("#playerStatus").css({'display': 'none'});
+        $("#enemyStatus").css({'display': 'none'});
 
         shuffleArray(cardArray); //comment out for non-random card order for quick testing
     };
@@ -171,6 +173,8 @@ $(() => {
 
             playerHP -= enemyAtk;
             $("#playerHP").text(playerHP);
+            $("#playerStatus").text(`- ${enemyAtk}`).css({ 'display': 'flex',"color": "tomato"});
+            statusTextFade ("#playerStatus", 1500, 1000);
             
             setTimeout(() => {
                 $card1.attr('src', 'img/cardBack.png').removeClass('flipped');
@@ -194,24 +198,34 @@ $(() => {
             isGreen = false;
             applyShake("#enemyContainer");
             $("#enemycurrentHP").text(enemycurrentHP);
+            $("#enemyStatus").text(`- ${playerAtk.blue}`).css({ 'display': 'flex',"color": "tomato"});
+            statusTextFade ("#enemyStatus", 1500, 1000);
         } else if (card1Name === "yellow" && card2Name === "yellow") {
             enemycurrentHP -= playerAtk.yellow;
             isGreen = false;
             applyShake("#enemyContainer");
             $("#enemycurrentHP").text(enemycurrentHP);
+            $("#enemyStatus").text(`- ${playerAtk.yellow}`).css({ 'display': 'flex',"color": "tomato"});
+            statusTextFade ("#enemyStatus", 1500, 1000);
         } else if (card1Name === "red" && card2Name === "red") {
             enemycurrentHP -= playerAtk.red;
             isGreen = false;
             applyShake("#enemyContainer");
             $("#enemycurrentHP").text(enemycurrentHP);
+            $("#enemyStatus").text(`- ${playerAtk.red}`).css({ 'display': 'flex',"color": "tomato"});
+            statusTextFade ("#enemyStatus", 1500, 1000);
         } else if (card1Name === "green" && card2Name === "green") {
             playerHP += playerAtk.green;
             isGreen = true;
             $("#playerHP").text(playerHP);
+            $("#playerStatus").text(`+ ${playerAtk.green}`).css({ 'display': 'flex',"color": "springgreen"});
+            statusTextFade ("#playerStatus", 1500, 1000);
         }
 
         if(cardsFlipped.length === (cardArray.length/2)) {
             enemycurrentHP -= playerAtk.special;
+            $("#enemyStatus").text(`- ${playerAtk.special}`).css({ 'display': 'flex',"color": "tomato"});
+            statusTextFade ("#enemyStatus", 1500, 1000);
             if (isGreen===true) {
                 applyShake("#enemyContainer");
                 isGreen = false;
@@ -219,6 +233,8 @@ $(() => {
             $("#enemycurrentHP").text(enemycurrentHP);
             playerHP += playerAtk.healXL;
             $("#playerHP").text(playerHP);
+            $("#playerStatus").text(`+ ${playerAtk.healXL}`).css({ 'display': 'flex',"color": "springgreen"});
+            statusTextFade ("#playerStatus", 1500, 1000);
             resetBoard();
         }
 
@@ -231,7 +247,7 @@ $(() => {
         if (enemycurrentHP <= 0) {
             stageCleared += 1;
             $("#stageCleared").text(stageCleared);
-            applyFade("#enemyContainer")
+            applyFade("#enemyContainer", 500, false)
 
             setTimeout(() => {
                 ("#enemyContainer").empty;    
@@ -284,11 +300,17 @@ $(() => {
         });
     }
 
-    const applyFade = (elementSelector) => {
+    const applyFade = (elementSelector, duration, toggle) => {
         $(elementSelector).effect('fade', {
-            toggle: false,
-            duration: 500,
+            toggle: toggle,
+            duration: duration,
             easing: 'easeInOutCirc'
+        });
+    }
+
+    const statusTextFade = (elementSelector, durationIn, durationOut) => {
+        $(elementSelector).fadeIn(durationIn, () => {
+            $(elementSelector).fadeOut(durationOut);
         });
     }
 
