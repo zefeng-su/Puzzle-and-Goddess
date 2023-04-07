@@ -12,6 +12,14 @@ body {
     flex-direction: column;
 }
 
+#gameover{
+    width: 165px;
+    display:flex;
+    flex-wrap: wrap;
+    align-items: center;
+    justify-content: center;
+}
+
 #innerContainer{
     width: 1280px;
     display:flex;
@@ -70,7 +78,7 @@ body {
 #grid {
     width: auto;
     display:grid;
-    grid-template-columns: repeat(5, 100px) ;
+    grid-template-columns: repeat(4, 100px) ;
     gap: 5px;
 }
 

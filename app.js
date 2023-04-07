@@ -15,10 +15,6 @@ $(() => {
         {name: 'yellow', img: 'img/yellow.png'},
         {name: 'yellow', img: 'img/yellow.png'},
         {name: 'yellow', img: 'img/yellow.png'},
-        {name: 'yellow', img: 'img/yellow.png'},
-        {name: 'yellow', img: 'img/yellow.png'},
-        {name: 'blue', img: 'img/blue.png'},
-        {name: 'blue', img: 'img/blue.png'},
         {name: 'blue', img: 'img/blue.png'},
         {name: 'blue', img: 'img/blue.png'},
         {name: 'blue', img: 'img/blue.png'},
@@ -100,7 +96,9 @@ $(() => {
             $card.on("click", flipCard);
             $("#grid").append($card);  
             $("#stageCleared").text(stageCleared);  
-         }    
+        }    
+        
+        $("#gameover").css({'display': 'none'});
 
         shuffleArray(cardArray); //comment out for non-random card order for quick testing
     };
@@ -108,6 +106,14 @@ $(() => {
     //A function to randomize order of elements in array.
     const shuffleArray = (array) => {
         return array.sort(() => Math.random() - 0.5);
+    }
+
+    const gameOver = () => {
+        $("#gameover").css({'display': 'flex'});
+        $("#innerContainer").find('*').css({'display': 'none'});
+        $("#gameoverbtn").on("click", () => {
+            location.reload();
+        });
     }
 
     //1. Board need to reset when all cards flipped over.
@@ -175,30 +181,41 @@ $(() => {
         cardChosenName = [];
         cardChosenID = [];
 
-      
+        if (playerHP <= 0) {
+            gameOver();
+        }
     };
+
+    let isGreen = false;
 
     const attackEnemy = (card1Name, card2Name) => {  
         if (card1Name === "blue" && card2Name === "blue") {
             enemycurrentHP -= playerAtk.blue;
+            isGreen = false;
             applyShake("#enemyContainer");
             $("#enemycurrentHP").text(enemycurrentHP);
         } else if (card1Name === "yellow" && card2Name === "yellow") {
             enemycurrentHP -= playerAtk.yellow;
+            isGreen = false;
             applyShake("#enemyContainer");
             $("#enemycurrentHP").text(enemycurrentHP);
         } else if (card1Name === "red" && card2Name === "red") {
             enemycurrentHP -= playerAtk.red;
+            isGreen = false;
             applyShake("#enemyContainer");
             $("#enemycurrentHP").text(enemycurrentHP);
         } else if (card1Name === "green" && card2Name === "green") {
             playerHP += playerAtk.green;
+            isGreen = true;
             $("#playerHP").text(playerHP);
         }
 
         if(cardsFlipped.length === (cardArray.length/2)) {
             enemycurrentHP -= playerAtk.special;
-            applyShake("#enemyContainer");
+            if (isGreen===true) {
+                applyShake("#enemyContainer");
+                isGreen = false;
+            }
             $("#enemycurrentHP").text(enemycurrentHP);
             playerHP += playerAtk.healXL;
             $("#playerHP").text(playerHP);
@@ -210,7 +227,6 @@ $(() => {
             playerHP = PlayerMaxHP;
             $("#playerHP").text(playerHP)
         }
-
 
         if (enemycurrentHP <= 0) {
             stageCleared += 1;
@@ -268,7 +284,7 @@ $(() => {
         });
     }
 
-    const applyFade= (elementSelector) => {
+    const applyFade = (elementSelector) => {
         $(elementSelector).effect('fade', {
             toggle: false,
             duration: 500,
@@ -276,8 +292,12 @@ $(() => {
         });
     }
 
-    createPlayer();
-    createEnemy();
-    createBoard(cardArray); 
+    const startGame = () => {
+        createPlayer();
+        createEnemy();
+        createBoard(cardArray); 
+    }
 
+    startGame();
+  
 })
