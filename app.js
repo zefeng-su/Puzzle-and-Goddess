@@ -57,6 +57,14 @@ $(() => {
         } 
     }
 
+    class Soundlibrary {
+        constructor() {
+            this.click = {url:'audio/click.wav'};
+            this.match = {url:'audio/match.wav'};
+              
+        } 
+    }
+
     const PlayerMaxHP = 100;
     let playerHP = null;
     let enemyMaxHP = 30;
@@ -86,6 +94,12 @@ $(() => {
         $("#enemy").css({"background-image": `url(${enemy.type.img})`});
     };
 
+    const playSound = (soundID,key) => {
+        let sound = new Soundlibrary();
+        $(soundID).attr('src', sound[key].url);
+        sound = $(soundID)[0];
+        sound.play();
+    }
    
     //1. To place card on board and distribute them randomly.
     //2. Function to populate cards stored in the cardArray then populate them randomly on the grid.
@@ -102,7 +116,7 @@ $(() => {
         $("#playerStatus").css({'display': 'none'});
         $("#enemyStatus").css({'display': 'none'});
 
-        //shuffleArray(cardArray); //comment out for non-random card order for quick testing
+        shuffleArray(cardArray); //comment out for non-random card order for quick testing
     };
 
     //A function to randomize order of elements in array.
@@ -143,6 +157,8 @@ $(() => {
         if ($card.hasClass('flipped')) {
             return;
         }
+         
+        playSound("#soundContainer", "click");
     
         cardChosenName.push(cardArray[$cardID].name);
         cardChosenID.push($cardID);
@@ -167,7 +183,8 @@ $(() => {
     
         if (card1Name === card2Name) {
             cardsFlipped.push(cardChosenName);
-            attackEnemy(card1Name, card2Name);          
+            attackEnemy(card1Name, card2Name);   
+            playSound("#soundContainer", "match");       
         } else {
             applyBounce("#grid");
             applyShake("#playerContainer"); 
@@ -191,9 +208,10 @@ $(() => {
         }
     };
 
-    let isGreen = false;
 
     const attackEnemy = (card1Name, card2Name) => {  
+        let isGreen = false;
+
         if (card1Name === "blue" && card2Name === "blue") {
             enemycurrentHP -= playerAtk.blue;
             isGreen = false;
@@ -330,5 +348,5 @@ $(() => {
     }
 
     startGame();
-    
+
 })
