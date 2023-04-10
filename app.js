@@ -78,7 +78,7 @@ $(() => {
     let playerAtk = null;
     let enemyAtk = 5;
     let stageCleared = 0;
-    let highScore = null;
+    let highScore = 0;
     let enemyLv = 1;
 
     const createPlayer = () => {
@@ -368,5 +368,7 @@ $(() => {
     }
 
     startGame();
+    
+    //localStorage.clear();
 
 })
