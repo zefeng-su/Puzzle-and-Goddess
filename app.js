@@ -134,9 +134,11 @@ $(() => {
     }
 
     const gameOver = () => {
-        highScore = stageCleared;
-        $("#highScore").text(highScore);  
-        localStorage.setItem("highScore", highScore);
+        if (stageCleared >= highScore) {
+            highScore = stageCleared;
+            $("#highScore").text(highScore);  
+            localStorage.setItem("highScore", highScore);
+        }
         playSound("#soundContainer", "gameOver");
         $("#gameover").css({'display': 'flex'});
         $("#innerContainer").find('*').css({'display': 'none'});
