@@ -98,7 +98,10 @@ $(() => {
         let sound = new Soundlibrary();
         $(soundID).attr('src', sound[key].url);
         sound = $(soundID)[0];
-        sound.play();
+        sound.load();
+        setTimeout(() => {
+            sound.play();
+        }, 10);
     }
    
     //1. To place card on board and distribute them randomly.
