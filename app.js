@@ -28,7 +28,7 @@ $(() => {
     class Player {
         constructor(name) {
             this.name = name;
-            this.health = 100;
+            this.health = 10;
             this.attack = {
                 blue: 5,
                 yellow: 10,
@@ -60,8 +60,14 @@ $(() => {
     class Soundlibrary {
         constructor() {
             this.click = {url:'audio/click.wav'};
-            this.match = {url:'audio/match.wav'};
-              
+            this.mismatch = {url:'audio/mismatch.wav'};
+            this.heal = {url:'audio/heal.wav'};
+            this.atkBlue = {url:'audio/atkBlue.wav'};
+            this.atkYellow = {url:'audio/atkYellow.wav'};
+            this.atkRed = {url:'audio/atkRed.wav'};
+            this.gameOver = {url:'audio/gameOver.wav'};
+            this.allClear = {url:'audio/allClear.wav'};
+            this.bgm = {url:'audio/BGMloop.mp3'};
         } 
     }
 
@@ -72,6 +78,7 @@ $(() => {
     let playerAtk = null;
     let enemyAtk = 5;
     let stageCleared = 0;
+    let highScore = null;
     let enemyLv = 1;
 
     const createPlayer = () => {
@@ -118,7 +125,6 @@ $(() => {
         $("#gameover").css({'display': 'none'});
         $("#playerStatus").css({'display': 'none'});
         $("#enemyStatus").css({'display': 'none'});
-
         shuffleArray(cardArray); //comment out for non-random card order for quick testing
     };
 
@@ -128,6 +134,10 @@ $(() => {
     }
 
     const gameOver = () => {
+        highScore = stageCleared;
+        $("#highScore").text(highScore);  
+        localStorage.setItem("highScore", highScore);
+        playSound("#soundContainer", "gameOver");
         $("#gameover").css({'display': 'flex'});
         $("#innerContainer").find('*').css({'display': 'none'});
         $("#gameoverbtn").on("click", () => {
@@ -186,13 +196,13 @@ $(() => {
     
         if (card1Name === card2Name) {
             cardsFlipped.push(cardChosenName);
-            attackEnemy(card1Name, card2Name);   
-            playSound("#soundContainer", "match");            
+            attackEnemy(card1Name, card2Name);           
         } else {
             applyBounce("#grid");
             applyShake("#playerContainer"); 
             disableClickTemp();
             playerHP -= enemyAtk;
+             playSound("#soundContainer", "mismatch");    
             $("#playerHP").text(playerHP);
             $("#playerStatus").text(`- ${enemyAtk}`).css({ 'display': 'flex',"color": "tomato"});
             statusTextFade ("#playerStatus", 1500, 1000);
@@ -218,6 +228,7 @@ $(() => {
         if (card1Name === "blue" && card2Name === "blue") {
             enemycurrentHP -= playerAtk.blue;
             isGreen = false;
+            playSound("#soundContainer", "atkBlue");
             applyShake("#enemyContainer");
             $("#enemycurrentHP").text(enemycurrentHP);
             $("#enemyStatus").text(`- ${playerAtk.blue}`).css({ 'display': 'flex',"color": "tomato"});
@@ -225,6 +236,7 @@ $(() => {
         } else if (card1Name === "yellow" && card2Name === "yellow") {
             enemycurrentHP -= playerAtk.yellow;
             isGreen = false;
+            playSound("#soundContainer", "atkYellow");
             applyShake("#enemyContainer");
             $("#enemycurrentHP").text(enemycurrentHP);
             $("#enemyStatus").text(`- ${playerAtk.yellow}`).css({ 'display': 'flex',"color": "tomato"});
@@ -232,6 +244,7 @@ $(() => {
         } else if (card1Name === "red" && card2Name === "red") {
             enemycurrentHP -= playerAtk.red;
             isGreen = false;
+            playSound("#soundContainer", "atkRed");
             applyShake("#enemyContainer");
             $("#enemycurrentHP").text(enemycurrentHP);
             $("#enemyStatus").text(`- ${playerAtk.red}`).css({ 'display': 'flex',"color": "tomato"});
@@ -239,6 +252,7 @@ $(() => {
         } else if (card1Name === "green" && card2Name === "green") {
             playerHP += playerAtk.green;
             isGreen = true;
+            playSound("#soundContainer", "heal");
             $("#playerHP").text(playerHP);
             $("#playerStatus").text(`+ ${playerAtk.green}`).css({ 'display': 'flex',"color": "springgreen"});
             statusTextFade ("#playerStatus", 1500, 1000);
@@ -254,6 +268,7 @@ $(() => {
             }
             $("#enemycurrentHP").text(enemycurrentHP);
             playerHP += playerAtk.healXL;
+            playSound("#soundContainer", "allClear");
             $("#playerHP").text(playerHP);
             $("#playerStatus").text(`+ ${playerAtk.healXL}`).css({ 'display': 'flex',"color": "springgreen"});
             statusTextFade ("#playerStatus", 1500, 1000);
@@ -348,6 +363,8 @@ $(() => {
         createPlayer();
         createEnemy();
         createBoard(cardArray); 
+        highScore = localStorage.getItem("highScore");
+        $("#highScore").text(highScore);  
     }
 
     startGame();
