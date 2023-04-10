@@ -92,7 +92,7 @@ $(() => {
     //3. Using loop to populate card showing cardBack img on the gridboard, each card will have an unique id assigned. Calls shuffleArray function to randomize the elements in array.
     const createBoard = (cardArray) => {
         for (let i=0; i <cardArray.length; i++) {
-            const $card =  $("<img src='img/cardBack.png'>").attr('card-id', i).css("cursor", "pointer");
+            const $card =  $("<img src='img/cardBack.png'>").addClass('clickable').attr('card-id', i).css("cursor", "pointer");
             $card.on("click", flipCard);
             $("#grid").append($card);  
             $("#stageCleared").text(stageCleared);  
@@ -102,7 +102,7 @@ $(() => {
         $("#playerStatus").css({'display': 'none'});
         $("#enemyStatus").css({'display': 'none'});
 
-        shuffleArray(cardArray); //comment out for non-random card order for quick testing
+        //shuffleArray(cardArray); //comment out for non-random card order for quick testing
     };
 
     //A function to randomize order of elements in array.
@@ -154,6 +154,7 @@ $(() => {
         if (cardChosenName.length === 2) {
             const $card1 = $(`img[card-id=${cardChosenID[0]}]`);
             const $card2 = $(`img[card-id=${cardChosenID[1]}]`);
+            
             checkCardMatch($card1, $card2);   
         }
     };
@@ -170,7 +171,7 @@ $(() => {
         } else {
             applyBounce("#grid");
             applyShake("#playerContainer"); 
-
+            disableClickTemp();
             playerHP -= enemyAtk;
             $("#playerHP").text(playerHP);
             $("#playerStatus").text(`- ${enemyAtk}`).css({ 'display': 'flex',"color": "tomato"});
@@ -256,6 +257,14 @@ $(() => {
         }    
     };
 
+    const disableClickTemp = () => {
+        $('.clickable').off('click');
+
+        setTimeout(() => {
+            $('.clickable').on('click', flipCard);
+        }, 1000);
+    }
+
     const nextEnemy = () => {
         createEnemy();
         enemyMaxHP += 10;
@@ -321,5 +330,5 @@ $(() => {
     }
 
     startGame();
-  
+    
 })
