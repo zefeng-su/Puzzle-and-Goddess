@@ -187,7 +187,7 @@ $(() => {
         if (card1Name === card2Name) {
             cardsFlipped.push(cardChosenName);
             attackEnemy(card1Name, card2Name);   
-            playSound("#soundContainer", "match");       
+            playSound("#soundContainer", "match");            
         } else {
             applyBounce("#grid");
             applyShake("#playerContainer"); 
