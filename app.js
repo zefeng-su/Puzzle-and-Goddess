@@ -364,16 +364,16 @@ $(() => {
 // 2. This function creates new enemy when current enemy is defeated
 // 3. When function is invoked, createEnemy is invoked to create new random enemy. The stats of enemy is updated with +1 level, then more hp and atk stats
 //===================================================================================================================================================   
-const nextEnemy = () => {
-    createEnemy();
-    enemyMaxHP += 10;
-    enemycurrentHP = enemyMaxHP;
-    enemyAtk += 1;
-    enemyLv +=1;
-    $("#enemyHP").text(enemyMaxHP);
-    $("#enemyLevel").text(enemyLv);
-    $("#enemycurrentHP").text(enemycurrentHP);
-}
+    const nextEnemy = () => {
+        createEnemy();
+        enemyMaxHP += 10;
+        enemycurrentHP = enemyMaxHP;
+        enemyAtk += 1;
+        enemyLv +=1;
+        $("#enemyHP").text(enemyMaxHP);
+        $("#enemyLevel").text(enemyLv);
+        $("#enemycurrentHP").text(enemycurrentHP);
+    }
 
 //===================================================================================================================================================
 // 1. Function to disable clicking temporary to keep code DRY
