@@ -1,10 +1,15 @@
-# Project Title
+# Puzzle and Goddess 
 
-One Paragraph of project description goes here
+Puzzle and Goddess is a match 2 memory game that utilizes a unique combat system to engage players in thrilling battles against waves of enemies. In this game, players must use their memory-matching skills to make strategic matches that determine the strength of their attacks.
 
-## Getting Started
+## Features
 
-These instructions will get you a copy of the project up and running on your local machine for development and testing purposes. See deployment for notes on how to deploy the project on a live system.
+* Match 2 memory game with strategic combat mechanics
+* Engaging battles against waves of enemies
+* Random enemy generated per wave
+* Unique combat system where match type determines attack strength
+* Simple & comprehensive interface
+* High score
 
 ### Prerequisites
 
