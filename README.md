@@ -34,7 +34,7 @@ Puzzle and Goddess is a match 2 memory game that utilizes a unique combat system
 
 ## Repository
 
-The source code is available on GitHub: <https://github.com/zefeng-su/zefeng-su.github.io/>
+The source code is available on GitHub: <https://github.com/zefeng-su/Puzzle-and-Goddess>
 
 ## Possible future enhancements
 
