@@ -30,7 +30,7 @@ Puzzle and Goddess is a match 2 memory game that utilizes a unique combat system
 
 ## Live Site
 
-<http://zefeng-su.github.io/>
+<https://puzzle-and-goddess.vercel.app/>
 
 ## Repository
 
