@@ -2,6 +2,10 @@
 
 Puzzle and Goddess is a match 2 memory game that utilizes a unique combat system to engage players in thrilling battles against waves of enemies. In this game, players must use their memory-matching skills to make strategic matches that determine the strength of their attacks.
 
+## Live Site
+
+<https://puzzle-and-goddess.vercel.app/>
+
 ## Features
 
 * Match 2 memory game with strategic combat mechanics
@@ -28,9 +32,7 @@ Puzzle and Goddess is a match 2 memory game that utilizes a unique combat system
 
 * Images are generated with Stable Diffusion, with further edits done using Adobe Photoshop.
 
-## Live Site
 
-<https://puzzle-and-goddess.vercel.app/>
 
 ## Repository
 
